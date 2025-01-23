@@ -11,5 +11,5 @@ spring:
           github:
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
-            redirect-uri: "{baseUrl}/login/oauth2/code/github"
+            redirect-uri: "https://unisplitterproject-production.up.railway.app/login/oauth2/code/github"
             scope: read:public_repo
