@@ -3,6 +3,7 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     url: ${POSTGRES_URL}
+    driver-class-name: org.postgresql.Driver
   security:
     oauth2:
       client:
