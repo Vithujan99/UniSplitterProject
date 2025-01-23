@@ -2,7 +2,7 @@ spring:
   datasource:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
-    url: ${POSTGRES_URL}
+    url: jdbc:postgresql://localhost:5432/splitter
     driver-class-name: org.postgresql.Driver
   security:
     oauth2:
