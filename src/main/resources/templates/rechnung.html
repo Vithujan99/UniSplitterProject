@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <title>Rechnung erstellen</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body class="container">
+    <h1>Füge Rechnung hinzu</h1>
+    <form th:action = "@{/rechnung(id=${gruppe.getId()})}" method="post" th:object="${gruppe}">
+        <label for="rechnungName" class = "form-label">Wofür wurde bezahlt?</label>
+        <input type="text" id="rechnungName" class = "form-control" name="rechnungName" required="required">
+        <br>
+        <label for="bezahlerID">Wer hat bezahlt?
+            <select class="form-control" id="bezahlerID" name="bezahler" required="required">
+                <option th:each="mitglieder : ${gruppe.getMitglieder()}"
+                   th:value="${mitglieder.getGithubName()}"
+                   th:text="${mitglieder.getGithubName()}">
+
+                </option>
+            </select>
+        </label>
+        <br>
+        <label> Für wen wurde bezahlt? </label>
+        <br>
+        <div th:each="teilnehmer : ${gruppe.getMitglieder()}">
+            <input type="checkbox" th:id="${teilnehmer.getGithubName()}" name="teilnehmerNamen"
+                   th:value="${teilnehmer.getGithubName()}"
+            />
+            <label th:for="${teilnehmer.getGithubName()}" th:text="${teilnehmer.getGithubName()}">Name</label>
+            <br>
+        </div>
+        <label for="betrag">Wieviel wurde bezahlt?</label>
+        <input type="number" id="betrag" name="betrag" min="0.01" step="0.01" required="required">
+        <button type="submit" id = "checkBtn" class="btn btn-primary mb-3">Rechnung erstellen</button>
+    </form>
+    <button type="button" class="btn btn-primary mb-3"><a style="text-decoration: none; color: white;" th:href="@{/gruppe(id=${gruppe.getId()})}">Zurück zur Gruppe</a></button>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#checkBtn').click(function() {
+                checked = $("input[type=checkbox]:checked").length;
+                if(!checked) {
+                    alert("You must check at least one checkbox.");
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
